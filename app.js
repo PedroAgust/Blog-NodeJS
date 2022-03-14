@@ -16,6 +16,7 @@
     const passport = require('passport')
     require('./config/auth')(passport)
     const db = require('./config/db')
+const { mongoURI } = require('./config/db')
 // Configurações
     // Sessão
     app.use(session({
@@ -43,7 +44,7 @@
         app.set('view engine', 'handlebars')
     //Mongoose
         mongoose.Promise = global.Promise
-        mongoose.connect(db.mongoURI).then(()=>{
+        mongoose.connect(mongoURI).then(()=>{
             console.log("Banco de Dados conectado com sucesso")
         }).catch((err)=>{
             console.log(`Ocoreu um erro ao tentar conectar com o banco de dados: ${err}`)
@@ -114,7 +115,7 @@
     app.use('/admin', admin)
     app.use('/usuarios', usuarios)
 // Outros
-const PORT = process.env.PORT || 5050
+const PORT = 4010
 app.listen(PORT, () => {
     console.log(`Servidor iniciado em http://localhost:${PORT}`)
 })
